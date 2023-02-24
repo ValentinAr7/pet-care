@@ -33,18 +33,18 @@ const registerTemplate = (onRegister) => html`
 
 
 export function showRegister(ctx){
-    ctx.render(loginTemplate(registerTemplate(onRegister)))
+    ctx.render(registerTemplate(createSubmitHandler(onRegister)))
 
     async function onRegister({email, password, repeatPassword}){
         if(email == '' || password == ''){
             return alert('All fields are requiered')
         }
 
-        if(password!= repeatPassword){
+        if(password != repeatPassword){
             return alert('Passwords do not match')
         }
 
         await register(email, password);
-        ctx.page.redirect(('/home'))
+        ctx.page.redirect(('/'))
     }
 }
