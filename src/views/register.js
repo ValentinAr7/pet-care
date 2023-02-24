@@ -45,6 +45,7 @@ export function showRegister(ctx){
         }
 
         await register(email, password);
+        ctx.updateNav()
         ctx.page.redirect('/')
     }
 }

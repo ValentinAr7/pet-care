@@ -26,7 +26,8 @@ page.start()
 
 function decorateContext(ctx, next){     //every time the user navigates page.js will run this function before every view
     ctx.render = renderMain;
-
+    ctx.updateNav = updateNav;
+    
     next()          //continue in case of async func
 }
 
