@@ -3,6 +3,9 @@
 
 import {page, render } from './lib.js'
 
+const main = document.getElementById('content')     //content needs to get to all views
+
+page(decorateContext);
 page('/', () => console.log('home'));
 page('/catalog', () => console.log('catalog'));
 page('/catalog/:id', () => console.log('details'));
@@ -11,6 +14,18 @@ page('/create', () => console.log('create'));
 page('/register', () => console.log('register'));
 page('/login', () => console.log('login'));
 
+
+page.start()
+
+function decorateContext(ctx, next){     //every time the user navigates page.js will run this function before every view
+    ctx.render = renderMain;
+
+    next()          //continue in case of async func
+}
+
+function renderMain(content){           //renders the content into const main
+    render(content, main)
+}
 
 
 
