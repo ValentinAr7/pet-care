@@ -2,27 +2,29 @@ import { getUserData } from "./util";
 
 const host = 'http://localhost:3030';
 
-async function request(method, url, data){
-    const options = {
+async function request(method, url, data){ //make HTTP request to the server
+    const options = {                      
         method, 
         headers: {}
     };
 
-    if(data !== undefined){
-        options.headers['Content-Type'] = 'application/json';
-        options.body = JSON.stringify(data)
+    //if there is data, add headers and body to the reuest 
+    if(data !== undefined){       
+        options.headers['Content-Type'] = 'application/json';   
+        options.body = JSON.stringify(data)         //stringify the data
     }
 
-    const user = getUserData();
+    const user = getUserData();   //import getUserData() and store its value
 
+    //if user is found add access token to the headers
     if(user){
         options.headers['X-Authorization'] = user.accessToken
     }
 
     try{
-        const response = await fetch(host + url, options)
+        const response = await fetch(host + url, options)   //fetch data from the server
 
-        if(response.status == 204){
+        if(response.status == 204){  
             return response
         }
 
@@ -30,6 +32,9 @@ async function request(method, url, data){
         if(response.ok == false){
             throw new Error(result.message)
         }
+
+        return result
+         
     } catch(err){
         alert(err.message);
         throw err
