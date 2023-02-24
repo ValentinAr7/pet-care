@@ -1,4 +1,4 @@
-import { getUserData } from "./util";
+import { getUserData } from "../util";
 
 const host = 'http://localhost:3030';
 
