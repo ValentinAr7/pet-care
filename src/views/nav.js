@@ -24,5 +24,6 @@ const navTemplate = (hasUser) => html `
 </header>
 `
 export function updateNav() {
-    render(navTemplate(), nav)
+    const user = getUserData()
+    render(navTemplate(user), nav)
 }
