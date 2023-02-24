@@ -12,10 +12,10 @@ const main = document.getElementById('content')     //content needs to get to al
 page(decorateContext);
 page('/', showHome);
 page('/catalog', showCatalog);
-page('/catalog/:id', showRegister);
+page('/catalog/:id', () => console.log('details'));
 page('/edit/:id', () => console.log('edit'));
 page('/create', () => console.log('create'));
-page('/register', () => console.log('register'));
+page('/register', showRegister);
 page('/login', showLogin);
 
 
