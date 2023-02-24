@@ -31,5 +31,5 @@ const petCardTemplate = (pet) => html `
 
 export async function showCatalog(ctx){
     const pets = await getAll();    //frrom data.js
-    ctx.render(catalogTemplate());
+    ctx.render(catalogTemplate([]));
 }
