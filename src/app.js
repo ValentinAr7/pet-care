@@ -5,13 +5,14 @@ import {page, render } from './lib.js'
 import { showCatalog } from './views/catalog.js';
 import { showHome } from './views/home.js';
 import { showLogin } from './views/login.js';
+import { showRegister } from './views/register.js';
 
 const main = document.getElementById('content')     //content needs to get to all views
 
 page(decorateContext);
 page('/', showHome);
 page('/catalog', showCatalog);
-page('/catalog/:id', () => console.log('details'));
+page('/catalog/:id', showRegister);
 page('/edit/:id', () => console.log('edit'));
 page('/create', () => console.log('create'));
 page('/register', () => console.log('register'));
