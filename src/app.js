@@ -1,4 +1,4 @@
-import * as api from '/api/users.js'
+import * as api from '/api/user.js'
 
 
 window.api = api
