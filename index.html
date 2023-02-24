@@ -13,7 +13,7 @@
     <!--Navigation-->
     <header>
         <nav>
-            <section class="logo">
+             <section class="logo">
                 <img src="./images/logo.png" alt="logo">
             </section>
             <ul>
@@ -21,11 +21,11 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/catalog">Dashboard</a></li>
                 <!--Only Guest-->
-                <li><a href="/login">Login</a></li>
-                <li><a href="/register">Register</a></li>
+                <li class="guest"><a href="/login">Login</a></li>
+                <li class="guest"><a href="/register">Register</a></li>
                 <!--Only Users-->
-                <li><a href="/create">Create Postcard</a></li>
-                <li><a href="javascript:void(0)">Logout</a></li>
+                <li class="user"><a href="/create">Create Postcard</a></li>
+                <li class="user"><a id="logoutBtn" href="javascript:void(0)">Logout</a></li>
             </ul>
         </nav>
     </header>
