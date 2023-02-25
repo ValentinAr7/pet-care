@@ -4,6 +4,7 @@
 import {page, render } from './lib.js'
 import { getUserData } from './util.js';
 import { showCatalog } from './views/catalog.js';
+import { showCreate } from './views/create.js';
 import { showDetails } from './views/details.js';
 import { showHome } from './views/home.js';
 import { showLogin } from './views/login.js';
@@ -18,7 +19,7 @@ page('/', showHome);
 page('/catalog', showCatalog);
 page('/catalog/:id', showDetails);
 page('/edit/:id', () => console.log('edit'));
-page('/create', () => console.log('create'));
+page('/create', showCreate);
 page('/register', showRegister);
 page('/login', showLogin);
 

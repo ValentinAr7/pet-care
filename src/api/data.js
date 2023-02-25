@@ -13,3 +13,7 @@ export async function getById(id){
 export async function deleteById(id){
     return del('/data/pets/' + id);
 }
+
+export async function createPet (petData){
+    return post('/data/pets/', petData)
+}
