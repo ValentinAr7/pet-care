@@ -1,4 +1,4 @@
-import { getById } from "../api/data.js";
+import { deleteById, getById } from "../api/data.js";
 import { html, nothing } from "../lib.js";
 
 
@@ -33,7 +33,6 @@ export async function showDetails(ctx) {
     const id = ctx.params.id
     const pet = await getById(id)
 
-    const user = ctx.user;
     const hasUser = Boolean(ctx.user);
     const isOwner = hasUser && ctx.user._id == pet._ownerId
 
@@ -43,5 +42,10 @@ export async function showDetails(ctx) {
         const choice = confirm('Are you sure you want to delete this pet?');
 
         console.log(choice);
+
+        if(choice){
+            await deleteById(id)
+            ctx.page.redirect('/ ')
+        }
     }
 }
