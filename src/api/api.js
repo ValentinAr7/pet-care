@@ -28,9 +28,12 @@ async function request(method, url, data){ //make HTTP request to the server
             return response
         }
 
+
         const result = await response.json()
+
         if(response.ok == false){
             throw new Error(result.message)
+
         }
 
         return result
