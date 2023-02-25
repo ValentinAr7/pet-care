@@ -1,4 +1,6 @@
-import {html, render} from '../lib.js'
+import { logout } from '../api/user.js';
+import {html, render, page} from '../lib.js'
+import { getUserData } from '../util.js';
 
 const nav = document.querySelector('header');
 
@@ -17,13 +19,21 @@ const navTemplate = (hasUser) => html `
         <li class="guest"><a href="/register">Register</a></li>
         ` : html 
         `<li class="user"><a href="/create">Create Postcard</a></li>
-        <li class="user"><a id="logoutBtn" href="javascript:void(0)">Logout</a></li>`}
+        <li class="user"><a @click=${onLogout} id="logoutBtn" href="javascript:void(0)">Logout</a></li>`}
 
     </ul>
 </nav>
 </header>
 `
-export function updateNav() {
+export function updateNav() { 
     const user = getUserData()
     render(navTemplate(user), nav)
 }
+
+
+function onLogout(){
+    logout();
+    updateNav();
+    page.redirect('/')
+}
+

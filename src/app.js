@@ -27,17 +27,12 @@ page.start()
 function decorateContext(ctx, next){     //every time the user navigates page.js will run this function before every view
     ctx.render = renderMain;
     ctx.updateNav = updateNav;
-    
+
     next()          //continue in case of async func
 }
 
 function renderMain(content){           //renders the content into const main
     render(content, main)
-}
-
-function onLogout(){
-    logout();
-    page.redirect('/')
 }
 
 
