@@ -1,5 +1,5 @@
 import { deleteById, getById } from "../api/data.js";
-import { html } from "../lib.js";
+import { html, nothing } from "../lib.js";
 
 
 const detailsTemplate = (pet) => html`
