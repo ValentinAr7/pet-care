@@ -2,7 +2,8 @@ import { getUserData } from "../util.js";
 
 const host = 'http://localhost:3030';
 
-async function request(method, url, data){ //make HTTP request to the server
+//make HTTP request to the server
+async function request(method, url, data){  //this function receives method, path and body
     const options = {                      
         method, 
         headers: {}
@@ -43,6 +44,7 @@ async function request(method, url, data){ //make HTTP request to the server
     }
 }
 
+//CRUD 
 export const get = request.bind(null, 'get');           
 export const post = request.bind(null, 'post');
 export const put = request.bind(null, 'put');
