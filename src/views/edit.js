@@ -1,9 +1,9 @@
 import {html} from '../lib.js'
 
 
-const editTemplate = () => html`
+const editTemplate = (onEdit) => html`
 <section id="editPage">
-<form class="editForm">
+<form @submit=${onEdit}class="editForm">
     <img src="./images/editpage-dog.jpg">
     <div>
         <h2>Edit PetPal</h2>
