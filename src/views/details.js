@@ -78,5 +78,6 @@ export async function showDetails(ctx) {
 
     async function onLike(){
         await donate(id);
+        ctx.page.redirect('/catalog' + id)
     }
 }
