@@ -1,9 +1,9 @@
-import { nothing } from "lit-html";
 import { deleteById, getById } from "../api/data.js";
+import { getDonations, getOwnDonation } from "../api/donation.js";
 import { html } from "../lib.js";
 
 
-const detailsTemplate = (pet, hasUser, isOwner, onDelete) => html`
+const detailsTemplate = (pet, hasUser, isOwner, onDelete, onLike) => html`
 <!--Details Page-->
 <section id="detailsPage">
     <div class="details">
@@ -16,22 +16,22 @@ const detailsTemplate = (pet, hasUser, isOwner, onDelete) => html`
                 <h3>Breed: ${pet.breed}</h3>
                 <h4>Age: ${pet.age}</h4>
                 <h4>Weight: ${pet.weight}</h4>
-                <h4 class="donation">Donation: 0$</h4>
+                <h4 class="donation">Donation: ${donations} 0$</h4>
             </div>
             ${petControls(pet, hasUser, isOwner, onDelete)}
         </div>
     </div>
 </section>`;
 
-function petControls(pet, hasUser, canDonate,isOwner, onDelete){
+function petControls(pet, hasUser, canDonate,isOwner, onDelete, onLike){
     if(hasUser == false){
-        return nothing
+        return 
     }
 
     if(canDonate){
         return html`
         <div class="actionBtn">     
-        <a href="#" class="donate">Donate</a>
+        <a @click=${onLike} href="javascript:void(0)" class="donate">Donate</a>
         </div>`
     } 
 
@@ -47,13 +47,23 @@ function petControls(pet, hasUser, canDonate,isOwner, onDelete){
 
 export async function showDetails(ctx) {
     const id = ctx.params.id
-    const pet = await getById(id)
 
+    const requests = [
+        getById(id),
+        getDonations(id)
+    ]
     const hasUser = Boolean(ctx.user);
-    const canDonate = true
-    const isOwner = hasUser && ctx.user._id == pet._ownerId
+    if(hasUser){
+        requests.push(getOwnDonation(id, ctx.user._id))
+    }
 
-    ctx.render(detailsTemplate(pet, hasUser,canDonate, isOwner, onDelete))
+    const [pet, donations, hasDonation ] = await Promise.all(requests)
+
+    const isOwner = hasUser && ctx.user._id == pet._ownerId
+    const canDonate = !isOwner && hasDonation == 0
+
+
+    ctx.render(detailsTemplate(pet, donations * 100, hasUser,canDonate, isOwner, onDelete, onLike))
 
     async function onDelete(){
         const choice = confirm('Are you sure you want to delete this pet?');
@@ -64,5 +74,9 @@ export async function showDetails(ctx) {
             await deleteById(id)
             ctx.page.redirect('/ ')
         }
+    }
+
+    async function onLike(){
+        await donate(id);
     }
 }
