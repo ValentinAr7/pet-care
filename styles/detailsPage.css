@@ -1,5 +1,7 @@
 #detailsPage {
   display: grid;
+  margin-top: 20px;
+  margin-bottom: 20px;
   justify-items: center;
 }
 
@@ -14,6 +16,7 @@
   background: #cf370991;
   box-shadow: 14px 14px 30px #464a4e, -14px -14px 30px #464a4e;
   justify-content: center;
+  margin-top: 50px
 }
 
 .animalPic {
@@ -34,7 +37,7 @@
 }
 
 .animalInfo h1 {
-  color: black;
+  color:black;
   font-weight: bolder;
   font-size: 28px;
 }
@@ -56,7 +59,7 @@
   letter-spacing: 0.1em;
 }
 
-.actionBtn {
+.actionBtn  {
   display: flex;
   text-align: center;
   left: auto;
@@ -66,16 +69,16 @@
 }
 
 .actionBtn > a {
-  width: 200%;
-  height: auto;
-  cursor: pointer;
-  border: none;
+width: 200%;
+height: auto;
+cursor: pointer;
+border: none;
   border-radius: 10px;
-  display: inline;
-  align-items: center;
-  justify-content: center;
-  background-color: #f34515;
-  transition: 500ms;
+display: inline;
+align-items: center;
+justify-content: center;
+background-color: #F34515;
+transition: 500ms;
   color: black;
   font-size: 16px;
   font-weight: 900;
@@ -88,5 +91,5 @@
 }
 
 .actionBtn > a:hover {
-  box-shadow: none;
+box-shadow: none;
 }

@@ -23,19 +23,19 @@ const detailsTemplate = (pet, hasUser, isOwner, onDelete, onLike) => html`
     </div>
 </section>`;
 
-function petControls(pet, hasUser, canDonate,isOwner, onDelete, onLike){
-    if(hasUser == false){
-        return 
+function petControls(pet, hasUser, canDonate, isOwner, onDelete, onLike) {
+    if (hasUser == false) {
+        return
     }
 
-    if(canDonate){
+    if (canDonate) {
         return html`
         <div class="actionBtn">     
         <a @click=${onLike} href="javascript:void(0)" class="donate">Donate</a>
         </div>`
-    } 
+    }
 
-    if(isOwner){
+    if (isOwner) {
         html`              
         <div class="actionBtn">     
         <a href="/edit/${pet._id}" class="edit">Edit</a>
@@ -53,30 +53,30 @@ export async function showDetails(ctx) {
         getDonations(id)
     ]
     const hasUser = Boolean(ctx.user);
-    if(hasUser){
+    if (hasUser) {
         requests.push(getOwnDonation(id, ctx.user._id))
     }
 
-    const [pet, donations, hasDonation ] = await Promise.all(requests)
+    const [pet, donations, hasDonation] = await Promise.all(requests)
 
     const isOwner = hasUser && ctx.user._id == pet._ownerId
     const canDonate = !isOwner && hasDonation == 0
 
 
-    ctx.render(detailsTemplate(pet, donations * 100, hasUser,canDonate, isOwner, onDelete, onLike))
+    ctx.render(detailsTemplate(pet, donations * 100, hasUser, canDonate, isOwner, onDelete, onLike))
 
-    async function onDelete(){
+    async function onDelete() {
         const choice = confirm('Are you sure you want to delete this pet?');
 
         console.log(choice);
 
-        if(choice){
+        if (choice) {
             await deleteById(id)
             ctx.page.redirect('/ ')
         }
     }
 
-    async function onLike(){
+    async function onLike() {
         await donate(id);
         ctx.page.redirect('/catalog' + id)
     }
