@@ -1,7 +1,8 @@
+import { editPet, getById } from '../api/data.js'
 import {html} from '../lib.js'
 
 
-const editTemplate = (onEdit) => html`
+const editTemplate = (pet, onEdit) => html`
 <section id="editPage">
 <form @submit=${onEdit}class="editForm">
     <img src="./images/editpage-dog.jpg">
@@ -9,44 +10,47 @@ const editTemplate = (onEdit) => html`
         <h2>Edit PetPal</h2>
         <div class="name">
             <label for="name">Name:</label>
-            <input name="name" id="name" type="text" value="Max">
+            <input name="name" id="name" type="text" .value=${pet.name}>
         </div>
         <div class="breed">
             <label for="breed">Breed:</label>
-            <input name="breed" id="breed" type="text" value="Shiba Inu">
+            <input name="breed" id="breed" type="text" .value=${pet.breed}>
         </div>
         <div class="Age">
             <label for="age">Age:</label>
-            <input name="age" id="age" type="text" value="2 years">
+            <input name="age" id="age" type="text" .value=${pet.age}>
         </div>
         <div class="weight">
             <label for="weight">Weight:</label>
-            <input name="weight" id="weight" type="text" value="5kg">
+            <input name="weight" id="weight" type="text" .value=${pet.weight}>
         </div>
         <div class="image">
             <label for="image">Image:</label>
-            <input name="image" id="image" type="text" value="./image/dog.jpeg">
+            <input name="image" id="image" type="text" .value=${pet.image}>
         </div>
         <button class="btn" type="submit">Edit Pet</button>
     </div>
 </form>
 </section>`
 
-export function showEdit(ctx) {
-    ctx.render(editTemplate(createSubmitHandler(onEdit)))
+export async function showEdit(ctx) {
+    const id = ctx.params.id
+    const pet = await getById(id)
+
+    ctx.render(editTemplate(pet, createSubmitHandler(onEdit)))
 
     async function onEdit({ name, breed, age, weight, image }) {
     if (name == '' || breed == '' || age == '' || weight == '' || image == '') {
         return alert('All fields are required')
     }
-    // await createPet({
-    //     name,
-    //     breed,
-    //     age,
-    //     weight,
-    //     image
-    // });
-    // ctx.page.redirect('/');
+    await editPet({
+        name,
+        breed,
+        age,
+        weight,
+        image
+    });
+    ctx.page.redirect('/catalog' + id);
     }
 
 }
