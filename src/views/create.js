@@ -1,9 +1,10 @@
 import {html} from '../lib.js'
+import { createSubmitHandler } from '../util.js'
 
 
-const createTemplate = () => html `
+const createTemplate = (onCreate) => html `
 <section id="createPage">
-<form class="createForm">
+<form @submit=${onCreate} class="createForm">
     <img src="./images/cat-create.jpg">
     <div>
         <h2>Create PetPal</h2>
@@ -34,5 +35,11 @@ const createTemplate = () => html `
 
 
 export function showCreate(ctx){
-    ctx.render(createTemplate())
+    ctx.render(createTemplate(createSubmitHandler(onCreate )))
+
+async function onCreate({name, breed, age, weight, image})
+if(name == '' || breed == '' || age == '' || weight == '' || image == ''){
+    return alert('All fields are required')
+}
+
 }
